@@ -17,10 +17,10 @@ public class Filme {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @NotBlank
+    @NotBlank (message = "o campo título é obrigatório")
     String titulo;
 
-    @Size(min = 10)
+    @Size(min = 10, message = "a sinopse deve ter pelo menos 10 caracteres")
     String sinopse;
 
     @Min(1) @Max(5)

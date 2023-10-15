@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>CineAdd</title>
+</head>
+
+<body class="grey lighten-3">
+
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo">Cine Add</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li class="active"><a href="/filme">não assistidos</a></li>
+                <li><a href="#">assistidos</a></li>
+                <li><a href="#">usuários</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <h2>Cadastrar Filme</h2>
+
+        <div class="card">
+            <div class="card-content">
+                <form class="col s12" th:action="${'/filme'}" method="post" th:object="${filme}">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input th:field="*{titulo}" type="text"
+                                th:classappend="${#fields.hasErrors('titulo')} ? invalid">
+                            <label for="titulo">Título</label>
+                            <span class="helper-text red-text" th:errors="*{titulo}"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <textarea class="materialize-textarea" th:field="*{sinopse}"
+                                th:classappend="${#fields.hasErrors('sinopse')} ? invalid"></textarea>
+                            <label for="sinopse">Sinopse</label>
+                            <span class="helper-text red-text" th:errors="*{sinopse}"></span>
+                        </div>
+                    </div>
+                    <label for="estrelas">Estrelas</label>
+                    <p class="range-field">
+                        <input th:field="*{estrelas}" type="range" min="1" max="100" />
+                        <span class="helper-text red-text" th:errors="*{estrelas}"></span>
+                    </p>
+
+            </div>
+            <div class="card-action right-align">
+                <a href="/filme" class="btn grey">cancelar</a>
+                <button class="btn">cadastrar</button>
+            </div>
+            </form>
+        </div>
+
+
+    </div>
+
+
+
+
+</body>
+
+</html>
