@@ -3,7 +3,6 @@ package br.com.fiap.cineadd.filme;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Service;
 
 @Service
