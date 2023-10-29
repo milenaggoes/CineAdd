@@ -1,48 +1,39 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <title>CineAdd</title>
-</head>
-
+<head th:replace="~{_template::head('tarefas')}"></head>
 <body class="grey lighten-3">
-
-    <nav>
-        <div class="nav-wrapper">
-            <a href="#" class="brand-logo">Cine Add</a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li class="active"><a href="/filme">não assistidos</a></li>
-                <li><a href="#">assistidos</a></li>
-                <li><a href="#">usuários</a></li>
-            </ul>
-        </div>
-    </nav>
-
+    <nav th:replace="~{_template::#navbar}"></nav>
     <div class="container">
-
         <div class="card-panel teal accent-3" th:if="${success}" th:text="${success}"></div>
         <div class="card-panel red darken-4 white-text" th:if="${error}" th:text="${error}"></div>
-
-        <h2 th:text="#{filme.pending}">Filmes Pendentes</h2>
-
+        <h2 th:text="#{task.pending}">Filmes Pendentes</h2>
         <div class="row">
-            <div class="col s12 m6" th:each="filme : ${filmes}" >
+            <div class="col s12 m6" th:each="filme : ${filmes}">
                 <div class="card">
                     <div class="card-content">
+                        <img th:if="${filme.user != null}" th:src="${filme.user.avatarUrl}" class="avatar" alt="">
                         <div class="progress">
                             <div class="determinate" th:style="${'width:' + filme.status + '%'}"></div>
                         </div>
-                        <span class="card-title" th:text="${filme.titulo}"></span>
-                        <p th:text="${filme.sinopse}"></p>
-                        <span data-badge-caption="estrelas" class="badge blue white-text" th:text="${filme.estrelas}"></span>
+                        <span class="card-title" th:text="${filme.title}"></span>
+                        <p th:text="${filme.description}"></p>
+                        <span data-badge-caption="pontos" class="badge blue white-text" th:text="${filme.score}"></span>
                     </div>
                     <div class="card-action">
                         <a th:href="${'/filme/delete/' + filme.id}" class="btn red">
                             <i class="material-icons">delete</i>
+                        </a>
+                        <a th:if="${filme.status > 0}" th:href="${'/filme/dec/' + filme.id}" class="btn" title="subtrair status">
+                            <i class="material-icons">remove</i>
+                        </a>
+                        <a th:if="${task.status != 100}" th:href="${'/filme/inc/' + filme.id}" class="btn" title="somar status">
+                            <i class="material-icons">add</i>
+                        </a>
+                        <a th:if="${task.user == null}" th:href="${'/filme/catch/' + filme.id}" class="btn purple" title="pegar filme">
+                            <i class="material-icons">pan_tool</i>
+                        </a>
+                        <a th:if="${task.user != null}" th:href="${'/filme/drop/' + filme.id}" class="btn amber" title="largar filme">
+                            <i class="material-icons">do_not_touch</i>
                         </a>
 
                     </div>
@@ -50,14 +41,10 @@
             </div>
         </div>
     </div>
-
     <div class="fixed-action-btn">
-        <a href="/filme/new"class="btn-floating btn-large blue" title="adicionar filme">
-          <i class="large material-icons">add</i>
+        <a href="/filme/new" class="btn-floating btn-large blue" title="adicionar filme">
+            <i class="large material-icons">add</i>
         </a>
-      </div>
-
-
+    </div>
 </body>
-
 </html>
